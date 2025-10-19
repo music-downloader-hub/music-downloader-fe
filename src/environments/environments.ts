@@ -1,15 +1,12 @@
 // Environment configuration for the application
 export const environment = {
   // Backend API configuration
-  apiBaseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080',
-  
+  apiBaseUrl: import.meta.env.VITE_API_BASE_URL,
   // iTunes API configuration
-  itunesApiBase: import.meta.env.VITE_ITUNES_API_BASE || 'https://itunes.apple.com/search',
-  itunesLookupBase: import.meta.env.VITE_ITUNES_LOOKUP_BASE || 'https://itunes.apple.com/lookup',
-  
+  itunesApiBase: import.meta.env.VITE_ITUNES_API_BASE,
+  itunesLookupBase: import.meta.env.VITE_ITUNES_LOOKUP_BASE,
   // Apple Music configuration
-  appleMusicBase: import.meta.env.VITE_APPLE_MUSIC_BASE || 'https://music.apple.com',
-  
+  appleMusicBase: import.meta.env.VITE_APPLE_MUSIC_BASE,
   // Development mode
   isDevelopment: import.meta.env.DEV,
   isProduction: import.meta.env.PROD,

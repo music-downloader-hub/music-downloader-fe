@@ -4,6 +4,12 @@
 # Stage 1: Build the application
 FROM node:18-alpine AS builder
 
+# Accept build arguments
+ARG VITE_API_BASE_URL
+ARG VITE_ITUNES_API_BASE
+ARG VITE_ITUNES_LOOKUP_BASE
+ARG VITE_APPLE_MUSIC_BASE
+
 # Set working directory
 WORKDIR /app
 
@@ -15,6 +21,12 @@ RUN npm ci
 
 # Copy source code
 COPY . .
+
+# Set environment variables for build
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ENV VITE_ITUNES_API_BASE=$VITE_ITUNES_API_BASE
+ENV VITE_ITUNES_LOOKUP_BASE=$VITE_ITUNES_LOOKUP_BASE
+ENV VITE_APPLE_MUSIC_BASE=$VITE_APPLE_MUSIC_BASE
 
 # Build the application
 RUN npm run build
