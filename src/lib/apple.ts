@@ -1,3 +1,5 @@
+import { APPLE_MUSIC_BASE } from "@/environments/environments";
+
 export function buildAppleMusicSongUrl(trackViewUrl: string, trackId?: number): string {
   try {
     const url = new URL(trackViewUrl);
@@ -21,7 +23,7 @@ export function buildAppleMusicSongUrl(trackViewUrl: string, trackId?: number): 
     }
 
     if (id) {
-      return `https://music.apple.com/${region}/song/${id}`;
+      return `${APPLE_MUSIC_BASE}/${region}/song/${id}`;
     }
     return trackViewUrl;
   } catch {

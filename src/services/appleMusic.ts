@@ -1,7 +1,5 @@
 import { SearchResults, Song, Album, Artist } from "@/types/music";
-
-const ITUNES_API_BASE = "https://itunes.apple.com/search";
-const ITUNES_LOOKUP_BASE = "https://itunes.apple.com/lookup";
+import { ITUNES_API_BASE, ITUNES_LOOKUP_BASE } from "@/environments/environments";
 
 export async function searchMusic(query: string, type: "song" | "album" = "song"): Promise<SearchResults> {
   if (!query.trim()) {
