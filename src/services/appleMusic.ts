@@ -1,6 +1,12 @@
 import { SearchResults, Song, Album, Artist } from "@/types/music";
 import { ITUNES_API_BASE, ITUNES_LOOKUP_BASE } from "@/environments/environments";
 
+// Clean invisible Unicode characters from URL
+function cleanUrl(url: string): string {
+  // Remove invisible unicode characters cause url issue
+  return url.replace(/[\u200E\u200F\u202A-\u202E\u2066-\u2069]/g, '');
+}
+
 export async function searchMusic(query: string, type: "song" | "album" = "song"): Promise<SearchResults> {
   if (!query.trim()) {
     return { songs: [], albums: [], artists: [] };
@@ -8,9 +14,9 @@ export async function searchMusic(query: string, type: "song" | "album" = "song"
 
   try {
     const entity = type === "album" ? "album" : "song";
-    const response = await fetch(
-      `${ITUNES_API_BASE}?term=${encodeURIComponent(query)}&media=music&entity=${entity}&limit=50&country=vn`
-    );
+    const rawUrl = `${ITUNES_API_BASE}?term=${encodeURIComponent(query)}&media=music&entity=${entity}&limit=50&country=vn`;
+    const searchUrl = cleanUrl(rawUrl);
+    const response = await fetch(searchUrl);
 
     if (!response.ok) {
       throw new Error("Search failed");
@@ -41,9 +47,9 @@ export async function searchMusic(query: string, type: "song" | "album" = "song"
 
 export async function fetchAlbumWithTracks(collectionId: number): Promise<{ album: Album; tracks: Song[] } | null> {
   try {
-    const response = await fetch(
-      `${ITUNES_LOOKUP_BASE}?id=${collectionId}&entity=song&country=vn`
-    );
+    const rawLookupUrl = `${ITUNES_LOOKUP_BASE}?id=${collectionId}&entity=song&country=vn`;
+    const lookupUrl = cleanUrl(rawLookupUrl);
+    const response = await fetch(lookupUrl);
     if (!response.ok) {
       throw new Error("Lookup failed");
     }
